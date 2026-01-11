@@ -1,0 +1,13 @@
+version: 1
+name: confirmation
+purpose: Confirmar dados antes de registrar a aula experimental.
+
+about: |
+  Confirmar com o usuario os dados coletados para a aula experimental
+  (nome, telefone, nivel, horario).
+
+template: |
+  Relembre de forma sucinta os dados fornecidos pelo usuario e pergunte
+  se estao corretos. Seja direto e claro.
+
+format: "Pergunte se esta correto e aguarde um 'sim' ou 'nao'."

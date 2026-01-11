@@ -1,0 +1,14 @@
+agent_name: "Flow Agent"
+
+topics:
+  - id: "infos_ct"
+    label: "Infos e dúvidas sobre o CT"
+    keywords: ["horario", "planos", "servicos", "como funciona", "local", "ct", "estrutura"]
+
+  - id: "aula_experimental"
+    label: "Agendar aula experimental"
+    keywords: ["aula experimental", "teste", "primeira aula", "aula gratis", "aula teste"]
+
+  - id: "servicos_exclusivos"
+    label: "Agendar serviços exclusivos"
+    keywords: ["aluguel", "alugar", "reserva", "reservar", "servico exclusivo", "churrasqueira", "quadra exclusiva"]

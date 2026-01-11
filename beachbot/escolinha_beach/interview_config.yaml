@@ -1,20 +1,12 @@
 version: 1
 name: aula_experimental
-purpose: Coletar dados mínimos para agendar a aula experimental.
+purpose: Coletar dados para aula experimental e registrar no sistema.
 
-steps:
-  - id: collect_profile
-    prompt: "Você já é aluno da Smash Beach Tennis? (sim/não)"
-  - id: collect_name
-    prompt: "Qual é o seu nome completo?"
-  - id: collect_phone
-    prompt: "Qual é o seu WhatsApp para contato?"
-  - id: collect_time
-    prompt: "Qual dia e horário você prefere para a aula experimental?"
-  - id: confirm
-    prompt: >-
-      Obrigado! Vou registrar sua aula experimental e nossa equipe
-      vai confirmar os detalhes em breve.
+interview_questions: |
+  Faça estas perguntas nesta ordem:
+  1. Qual é o seu nome?
+  2. Qual é o seu What completosApp para contato?
+  3. Qual o seu nivel no beach tennis? (iniciante, intermediario ou avancado)
+  4. Qual dia e horario voce prefere para a aula experimental?
 
-on_complete:
-  action: record_trial_request
+  

@@ -11,6 +11,14 @@ SCHEMA = (
     "  id INTEGER PRIMARY KEY AUTOINCREMENT,"
     "  role TEXT NOT NULL,"
     "  content TEXT NOT NULL,"
+    "  user_phone TEXT,"
+    "  session TEXT,"
+    "  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+    ");",
+    "CREATE TABLE IF NOT EXISTS clientes ("
+    "  id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    "  telefone TEXT NOT NULL UNIQUE,"
+    "  nome TEXT NOT NULL,"
     "  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     ");",
     "CREATE TABLE IF NOT EXISTS aulas_experimentais ("
@@ -19,13 +27,7 @@ SCHEMA = (
     "  telefone TEXT NOT NULL,"
     "  horario_escolhido TEXT NOT NULL,"
     "  nivel_aluno TEXT NOT NULL,"
-    "  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-    ");",
-    "CREATE TABLE IF NOT EXISTS atendimento_humano ("
-    "  id INTEGER PRIMARY KEY AUTOINCREMENT,"
-    "  topico TEXT NOT NULL,"
-    "  detalhes TEXT NOT NULL,"
-    "  status TEXT NOT NULL DEFAULT 'open',"
+    "  status TEXT NOT NULL DEFAULT 'confirmacao_pendente',"
     "  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     ");",
 )
@@ -40,38 +42,53 @@ def init_db(path: Path) -> sqlite3.Connection:
     return connection
 
 
-def log_message(connection: sqlite3.Connection, role: str, content: str) -> None:
-    """Armazena uma mensagem no historico da conversa."""
+def log_message(
+    connection: sqlite3.Connection,
+    role: str,
+    content: str,
+    user_phone: str | None = None,
+    session: str | None = None,
+) -> None:
+    """Armazena uma mensagem no historico da conversa, com opcional telefone e session."""
     connection.execute(
-        "INSERT INTO conversas (role, content) VALUES (?, ?)",
-        (role, content),
+        "INSERT INTO conversas (role, content, user_phone, session) VALUES (?, ?, ?, ?)",
+        (role, content, user_phone, session),
     )
     connection.commit()
 
 
-def record_trial_request(
+def registrar_aula_experimental(
     connection: sqlite3.Connection,
     nome: str,
     telefone: str,
     horario_escolhido: str,
-    nivel_aluno: str | None = None,
+    nivel_aluno: str,
+    status: str = "confirmacao_pendente",
 ) -> None:
     """Persiste um pedido de aula experimental."""
+    if status not in {"confirmada", "confirmacao_pendente"}:
+        raise ValueError("status invalido para aula experimental.")
     connection.execute(
-        "INSERT INTO aulas_experimentais (nome, telefone, horario_escolhido, nivel_aluno) VALUES (?, ?, ?, ?)",
-        (nome, telefone, horario_escolhido, nivel_aluno),
+        "INSERT INTO aulas_experimentais (nome, telefone, horario_escolhido, nivel_aluno, status) VALUES (?, ?, ?, ?, ?)",
+        (nome, telefone, horario_escolhido, nivel_aluno, status),
     )
     connection.commit()
 
 
-def create_handoff_ticket(
-    connection: sqlite3.Connection,
-    topico: str,
-    detalhes: str,
-) -> None:
-    """Abre um ticket para atendimento humano."""
+def confirmar_aula_experimental(connection: sqlite3.Connection, telefone: str) -> bool:
+    """Marca como confirmada a aula experimental mais recente para o telefone."""
+    cursor = connection.execute(
+        "SELECT id FROM aulas_experimentais WHERE telefone = ? ORDER BY id DESC LIMIT 1",
+        (telefone,),
+    )
+    row = cursor.fetchone()
+    if not row:
+        return False
+    (latest_id,) = row
     connection.execute(
-        "INSERT INTO atendimento_humano (topico, detalhes) VALUES (?, ?)",
-        (topico, detalhes),
+        "UPDATE aulas_experimentais SET status = 'confirmada' WHERE id = ?",
+        (latest_id,),
     )
     connection.commit()
+    return True
+

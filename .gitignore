@@ -1,2 +1,4 @@
 .env
-venv/
+venv310/
+dabeachbot/data/data.sqlite
+beachbot/__pycache__/

@@ -2,47 +2,34 @@ version: 1
 name: triage
 purpose: >-
   Identificar o objetivo do usuario e encaminhar para interview (aula experimental),
-  escalation (servicos exclusivos) ou answer (respostas gerais).
+  escalation (servicos exclusivos), Knowledge (duvidas sobre o CT)  answer (respostas gerais).
 
 keywords:
   "Interview Agent":
     - "aula experimental"
     - "aula de teste"
     - "experimental"
-    - "aula gratis"
-    - "aula teste"
-    - "teste"
+    - "aula inicial"
 
   "Escalation Agent":
     - "pagamento"
     - "pagar"
-    - "fatura"
-    - "mensalidade"
-    - "matricula"
-    - "inscricao"
-    - "inscrição"
-    - "cancelar"
-    - "cancelamento"
-    - "aluguel"
-    - "alugar"
-    - "reservar"
-    - "reserva"
-    - "reservas"
+    - "quero me matricular"
+    - "quero alugar"
+    - "quero reservar"
     - "falar com humano"
+    - "humano"
     - "atendente"
    
-  "Answer Agent":
-    - "horario"
+  "Knowledge Agent":
     - "horarios"
     - "funcionamento"
-    - "plano"
     - "planos"
     - "mensal"
     - "trimestral"
     - "semestral"
     - "servico"
     - "servicos"
-    - "endereco"
     - "endereço"
     - "local"
     - "onde fica"
@@ -51,3 +38,8 @@ keywords:
     - "valor"
     - "valores"
     - "ct"
+    - "quem sao voces"
+    - "o que fazem"
+    - "conhecer ct"
+    - "quadras"
+    - "quantas quadras"

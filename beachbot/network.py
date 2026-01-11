@@ -1,9 +1,11 @@
 """Configuracao de rede para o AtendentePro."""
 from __future__ import annotations
 
+import asyncio
 from pathlib import Path
 from typing import Any
 
+from agents import Runner
 from atendentepro.network import create_standard_network
 
 
@@ -12,21 +14,18 @@ def build_network() -> Any:
     return create_standard_network(
         templates_root=Path(__file__).parent,
         client="escolinha_beach",
-        include_knowledge=False,
+        include_escalation=True,
+        include_feedback=False,
+        include_confirmation=False,
+        include_answer=False,
     )
 
 
-def run_turn(network: Any, message: str) -> str:
-    """Envia uma mensagem do usuario pela rede e retorna a resposta em texto."""
-    if hasattr(network, "run"):
-        result = network.run(message)
-    elif hasattr(network, "handle_message"):
-        result = network.handle_message(message)
-    else:
-        raise AttributeError("Network object does not expose a run method.")
-
-    if isinstance(result, str):
-        return result
+def run_turn(network: Any, messages: list[dict[str, str]]) -> str:
+    """Envia a conversa ao agente de triagem via Runner (assincrono) e retorna texto."""
+    result = asyncio.run(Runner.run(network.triage, messages))
+    if hasattr(result, "final_output"):
+        return result.final_output
     if hasattr(result, "text"):
         return result.text
     return str(result)

@@ -1,8 +1,30 @@
 version: 1
 name: knowledge
-purpose: Responder dúvidas gerais usando os conteúdos locais.
+purpose: Responder duvidas gerais da Smash Beach Tennis.
 
-sources:
-  - ../content/faq.md
-  - ../content/horarios.md
-  - ../content/servicos.md
+about: |
+  Responda perguntas sobre horarios, servicos, planos, aulas e estrutura
+  da Smash Beach Tennis.
+
+template: |
+  Use APENAS os documentos fornecidos como fonte. Nao invente dados.
+  Para endereco/localizacao, reproduza exatamente o que estiver nos documentos.
+  Se nao houver a informacao pedida, diga que nao encontrou e ofereca encaminhar.
+
+format: |
+  Responda em portugues, de forma curta. Se nao souber, diga que nao encontrou
+  nos documentos e ofereca encaminhar para um atendente.
+
+documents:
+  - name: FAQ
+    path: ../content/faq.md
+    description: Perguntas frequentes sobre aulas experimentais, equipamentos e niveis.
+  - name: Horarios
+    path: ../content/horarios.md
+    description: Horarios de funcionamento e orientacao sobre encaminhamento humano.
+  - name: Servicos
+    path: ../content/servicos.md
+    description: Planos, tipos de aula e servicos exclusivos que exigem atendimento humano.
+  - name: Infos
+    path: ../content/infos.md
+    description: Endereço, estrutura e informacoes gerais sobre o CT.
