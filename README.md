@@ -1,6 +1,18 @@
 # 🤖 Smash Beach Tennis – AtendentePro (Multi-Agentes)
 
 Assistente de atendimento para o CT Smash Beach Tennis, baseado no framework **AtendentePro**.
+A ideia é substituir o atendente humano do CT. A ideia é substituir o atendimento ao cliente com um atendente virtual inteligente usando o framework.
+O agente deve ser capaz de:
+## 🧠 FAQ 
+Responder qualquer tipo de pergunta sobre o CT, como local, horários, planos, infos sobre estrutura e serviços etc
+
+## 🎾 Agendmaneto de Aula Experimental
+Agendar aulas experimentais gratuitas com informações mínimas necessárias e registrar/notificar o registro
+
+## ➕ Agendamento de Outros Serviços 
+O CT possui serviços pagos pra alunos matriculados, como Fisioterapia, e serviços pagos pra alunos não matriculados, como aluguel de quadras.
+Nesses casos, de serviços pagos, o agente deve ser capaz de escalar a conversa pra um funcionário real, de maneira que notifique o usuário que 
+um humano assumirá a conversa em breve. 
 
 ## 🧩 Arquitetura Multiagente
 Triage (router) direciona a conversa para:
