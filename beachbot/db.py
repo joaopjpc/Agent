@@ -43,6 +43,7 @@ def apply_migrations(
 
 def init_db(path: Path) -> sqlite3.Connection:
     """Cria o arquivo do banco SQLite e garante migrations aplicadas."""
+    path.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(path)
     apply_migrations(connection)
     return connection
