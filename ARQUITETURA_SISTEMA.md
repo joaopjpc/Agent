@@ -1,6 +1,6 @@
 # 🏗️ Arquitetura Atual do Sistema – Atendente Smash BT
 
-## 📊 Diagrama de Fluxo de Agentes
+## 📊 Diagrama de Fluxo de Agentes (pode haver fallback)
 
 ```
 
@@ -36,7 +36,7 @@
 └─────┬───────┘ └─────────────┘
       │
       ▼
-┌─────────────┐
+┌─ainda sem───┐
 │ ANSWER      │
 │ AGENT       │
 │             │
