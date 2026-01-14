@@ -1,4 +1,4 @@
-# 🤖 Smash Beach Tennis – AtendentePro (Multi-Agentes)
+# 🤖 Smash Beach Tennis – AtendentePro 
 ### ⚠️ Projeto em desenvolvimento (MVP)
 Assistente de atendimento para o CT Smash Beach Tennis, baseado no framework **AtendentePro**.
 
