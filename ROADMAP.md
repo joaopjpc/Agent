@@ -18,4 +18,8 @@ Objetivo: quando o cliente confirmar, registrar aula experimental no banco.
 - [ ] Integrar tool de registrar aula experimental no fluxo interview.yaml
 - [ ] Usar Confirmation Agent pra confirmar agendamento experimental
 - [ ] Testes de agendamento de aula experimental E2E no CLI
-- [ ] Disponibilizar .md com testes explícitos 
+- [ ] Disponibilizar .md com testes explícitos
+
+## Marco 2 — Smash-BT Agent no WhatsApp (NOT STARTED)
+Objetivo : manter o chatbot ativo 24/7 hospedado
+
