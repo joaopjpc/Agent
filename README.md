@@ -34,31 +34,31 @@ Triage (router) direciona a conversa para:
 
 
 ## 🏃 Como Rodar
-0. Pré-requisito: Python 3.10.
-1. Instalar dependencias:
+### 0. Pré-requisito: Python 3.10.
+### 1. Instalar dependencias:
    ```
    pip install -r requirements.txt
    ```
-2. Configurar `.env` na raiz:
+### 2. Configurar `.env` na raiz:
    ```
    ATENDENTEPRO_LICENSE_KEY=...
    OPENAI_API_KEY=...
    ESCALATION_HOUR_START=11
    ESCALATION_HOUR_END=19
    ```
-3. Gerar embeddings:
+### 3. Gerar embeddings:
    ```
    python beachbot/scripts/build_embeddings.py --preview-out beachbot/knowledge/embeddings/ct_combined_preview.md
    ```
-4. Criar o banco aplicando migrations:
+### 4. Criar o banco aplicando migrations:
    ```
    python -m db.migrate
    ```
-5. Executar o chat:
+### 5. Executar o chat:
    ```
    python -m beachbot.main_cli
    ```
-6. Encerrar: digite `sair`.
+### 6. Encerrar: digite `sair`.
 
 ## ⚙️ Configuração
 - `.env` (na raiz): `ATENDENTEPRO_LICENSE_KEY`, `OPENAI_API_KEY`, `ESCALATION_HOUR_START=11`, `ESCALATION_HOUR_END=19`.
