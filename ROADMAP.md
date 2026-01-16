@@ -21,5 +21,5 @@ Objetivo: quando o cliente confirmar, registrar aula experimental no banco.
 - [ ] Disponibilizar .md com testes explícitos
 
 ## Marco 2 — Smash-BT Agent no WhatsApp (NOT STARTED)
-Objetivo : manter o chatbot ativo 24/7 no WhatsApp hospedado
+Objetivo : manter o chatbot ativo 24/7 no WhatsApp hospedado em VPS
 
