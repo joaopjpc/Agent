@@ -1,2 +1,6 @@
 atendentepro==0.6.1
 python-dotenv==1.2.1
+fastapi==0.110.0
+uvicorn==0.24.0.post1
+httpx==0.27.0
+

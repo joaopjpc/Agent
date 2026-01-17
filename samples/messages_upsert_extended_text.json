@@ -1,0 +1,17 @@
+{
+  "event": "MESSAGES_UPSERT",
+  "instanceId": "demo-instance",
+  "data": {
+    "key": {
+      "remoteJid": "5511999997777@s.whatsapp.net",
+      "fromMe": false,
+      "id": "XYZ123"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Quero aula experimental gratuita"
+      }
+    },
+    "pushName": "Cliente Curioso"
+  }
+}
