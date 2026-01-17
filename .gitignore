@@ -5,3 +5,5 @@ beachbot/data/data.sqlite
 # Python cache
 __pycache__/
 *.pyc
+beachbot/knowledge/embeddings/ct_combined.pkl
+beachbot/knowledge/embeddings/ct_combined_preview.md
