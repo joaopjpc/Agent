@@ -32,10 +32,14 @@ def parse_messages_upsert(payload: Any) -> Optional[ParsedMessage]:
         return None
 
     event = payload.get("event")
-    if event is not None and event != "MESSAGES_UPSERT":
-        return None
+    if event is not None:
+        event_norm = str(event).lower()
+        if event_norm not in {"messages_upsert", "messages.upsert", "messages-upsert", "messages"}:
+            return None
 
-    instance_id: Optional[str] = payload.get("instanceId") or payload.get("instance_id")
+    instance_id: Optional[str] = (
+        payload.get("instanceId") or payload.get("instance_id") or payload.get("instance")
+    )
 
     containers: list[dict[str, Any]] = []
     data = payload.get("data")

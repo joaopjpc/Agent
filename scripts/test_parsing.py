@@ -45,21 +45,21 @@ def _assert_ignored(filename: str, reason: str) -> None:
 def main() -> None:
     _assert_parsed(
         "messages_upsert_conversation.json",
-        expected_sender="558199998888",
+        expected_sender="5521973641659",
         expected_text="Oi, quero saber mais",
         expected_message_id="BAE599990001",
         expected_instance_id="demo-instance",
     )
     _assert_parsed(
         "messages_upsert_extended_text.json",
-        expected_sender="5511999997777",
+        expected_sender="5521973641659",
         expected_text="Quero aula experimental gratuita",
         expected_message_id="XYZ123",
         expected_instance_id="demo-instance",
     )
     _assert_parsed(
         "messages_upsert_buttons_response.json",
-        expected_sender="554899999999",
+        expected_sender="5521973641659",
         expected_text="Agendar aula experimental",
         expected_message_id="BTN-123",
         expected_instance_id="demo-instance",

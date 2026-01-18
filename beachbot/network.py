@@ -64,11 +64,16 @@ def build_network(*, triage_mode: TriageMode = "prompt") -> Any:
     return network
 
 
-def run_turn(network: Any, messages: list[dict[str, str]]) -> str:
-    """Envia a conversa ao agente de triagem via Runner (assincrono) e retorna texto."""
-    result = asyncio.run(Runner.run(network.triage, messages))
+async def run_turn_async(network: Any, messages: list[dict[str, str]]) -> str:
+    """Executa uma rodada de conversa de forma assincrona."""
+    result = await Runner.run(network.triage, messages)
     if hasattr(result, "final_output"):
         return result.final_output
     if hasattr(result, "text"):
         return result.text
     return str(result)
+
+
+def run_turn(network: Any, messages: list[dict[str, str]]) -> str:
+    """Executa uma rodada de conversa de forma sincrona (compatibilidade CLI antiga)."""
+    return asyncio.run(run_turn_async(network, messages))
