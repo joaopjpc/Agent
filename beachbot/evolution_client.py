@@ -34,13 +34,17 @@ class EvolutionClient:
         url = f"{self.base_url}/message/sendText/{self.instance}"
         payload = {"number": number, "text": text, "delay": delay}
 
-        logger.info(
-            "Enviando texto via Evolution",
-            extra={"instance": self.instance, "number": number, "delay": delay},
-        )
+        logger.info("Evolution request: url=%s payload=%s", url, payload)
 
         # Envia a mensagem usando o cliente HTTP
         async with httpx.AsyncClient(timeout=self.timeout) as client: 
             response = await client.post(url, headers={"apikey": self.apikey}, json=payload)
+            logger.info("Evolution response: status=%s body=%s", response.status_code, response.text)
+            if response.status_code >= 400:
+                logger.error(
+                    "Evolution response error: status=%s body=%s",
+                    response.status_code,
+                    response.text,
+                )
             response.raise_for_status()
             return response.json()

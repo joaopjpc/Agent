@@ -100,6 +100,12 @@ async def _process_message(parsed: ParsedMessage) -> None:
         preview += "..."
 
     try:
+        logger.info(
+            "DEBUG outbound: sender=%r message_id=%r text_len=%d",
+            parsed.sender,
+            parsed.message_id,
+            len(reply_text or ""),
+        )
         await evolution_client.send_text(parsed.sender, reply_text)
         logger.info(
             "Resposta enviada via Evolution",
