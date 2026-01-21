@@ -1,6 +1,6 @@
 # 🤖 Smash Beach Tennis – AtendentePro 
 ### ⚠️ Projeto em desenvolvimento (MVP)
-![Exemplo de conversa no WhatsApp](docs/image.png)
+![Exemplo de conversa no WhatsApp](docs/intro_imagem.png)
 ![Exemplo de agendamento de aula experimental](docs/agendamento_imagem.png)
 
 Assistente de atendimento para o CT Smash Beach Tennis, baseado no framework **AtendentePro**.
@@ -43,6 +43,6 @@ Triage (router) direciona a conversa para:
 - Configure o webhook da Evolution para o endpoint público do bot para receber mensagens nesse número.
 
 ## Documentação
-- [Deploy em VPS (produção)](docs/DEPLOY_VPS.md)
-- [Rodando o CLI local](docs/CLI_LOCAL.md)
-- [Roadmap](docs/ROADMAP.md)
+- [Deploy em VPS (produção)](DEPLOY_VPS.md)
+- [Rodando o CLI local](CLI_LOCAL.md)
+- [Roadmap](ROADMAP.md)
