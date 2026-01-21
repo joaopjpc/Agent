@@ -154,4 +154,4 @@ docker compose exec -T postgres psql -U evolution -d beachbot_db < /tmp/beachbot
 
 ## 🗺️ Roadmap
 
-📌 Veja (ROADMAP.md)
+📌 Veja: [ROADMAP.md](ROADMAP.md)
