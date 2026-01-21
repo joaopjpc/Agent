@@ -1,4 +1,5 @@
 .env
+.envANTIGO
 venv
 venv310/
 beachbot/data/data.sqlite

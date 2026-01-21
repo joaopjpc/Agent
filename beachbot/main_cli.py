@@ -1,14 +1,15 @@
-"""CLI entrypoint for Smash Beach Tennis bot."""
+"""CLI entrypoint for Smash Beach Tennis bot (Postgres-only)."""
 from __future__ import annotations
+
+import asyncio
+import os
+import sys
 
 from dotenv import load_dotenv
 
-from beachbot import db
-from beachbot.network import build_network, run_turn
+from beachbot.core.handler import create_handler
 
 load_dotenv()
-
-DATA_PATH = db.DEFAULT_DB_PATH
 
 
 def _select_triage_mode() -> str:
@@ -22,12 +23,14 @@ def _select_triage_mode() -> str:
     return "prompt"
 
 
-def main() -> None:
-    """Simple terminal chat loop with conversation history."""
-    connection = db.init_db(DATA_PATH)
+async def main_async() -> None:
+    """Simple terminal chat loop with Postgres persistente."""
+    if not os.getenv("DATABASE_URL"):
+        print("DATABASE_URL nao definido. Configure Postgres antes de rodar o CLI.")
+        sys.exit(1)
+
     triage_mode = _select_triage_mode()
-    network = build_network(triage_mode=triage_mode)
-    messages: list[dict[str, str]] = []
+    handler = create_handler(triage_mode=triage_mode)
 
     print("Smash Beach Tennis - Atendimento (digite 'sair' para encerrar)\n")
 
@@ -39,13 +42,16 @@ def main() -> None:
             print("Ate logo!")
             break
 
-        db.log_message(connection, role="user", content=user_message)
-        messages.append({"role": "user", "content": user_message})
-
-        response = run_turn(network, messages)
+        response = await handler.handle_message(
+            sender="cli",
+            text=user_message,
+            history=None,
+        )
         print(f"Bot: {response}")
-        db.log_message(connection, role="assistant", content=response)
-        messages.append({"role": "assistant", "content": response})
+
+
+def main() -> None:
+    asyncio.run(main_async())
 
 
 if __name__ == "__main__":

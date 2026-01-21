@@ -1,0 +1,20 @@
+{
+  "event": "MESSAGES_UPSERT",
+  "instanceId": "demo-instance",
+  "data": {
+    "type": "notify",
+    "messages": [
+      {
+        "key": {
+          "remoteJid": "5521973641659@s.whatsapp.net",
+          "fromMe": false,
+          "id": "BAE599990001"
+        },
+        "message": {
+          "conversation": "Oi, quero saber mais"
+        },
+        "pushName": "Fulano Teste"
+      }
+    ]
+  }
+}

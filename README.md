@@ -30,7 +30,7 @@ Triage (router) direciona a conversa para:
 - `beachbot/config/*.yaml`: prompts/configs dos agentes (triage, flow, knowledge, interview, guardrails, style).
 - `beachbot/knowledge/`: conteúdo em markdown; embeddings em `knowledge/embeddings/ct_combined.pkl`.
 - `beachbot/scripts/build_embeddings.py`: gera embeddings combinando os `.md` (usa `text-embedding-3-large`).
-- `beachbot/db.py`: Camada de persistência SQLite: aplica migrations no init_db.
+- (Removido) Camada SQLite legado; toda a persistência agora é Postgres via `beachbot/storage/db.py` e migrations Alembic.
 
 
 ## 🏃 Como Rodar
@@ -72,7 +72,7 @@ venv\Scripts\activate
 
 ## Banco de Dados (Dev)
 Este projeto utiliza SQLite para desenvolvimento local.
-- O caminho do banco é definido em **um único ponto** (`beachbot/db.py`).
+- O banco utilizado é o Postgres apontado por `DATABASE_URL` (migrations Alembic).
 - O arquivo do banco **não é versionado** no repositório.
 ### Aplicar migrations
 Cria o banco (se não existir) e aplica todas as migrations:

@@ -1,0 +1,8 @@
+{
+  "event": "MESSAGES_STATUS",
+  "instanceId": "demo-instance",
+  "data": {
+    "status": "delivered",
+    "id": "STATUS-001"
+  }
+}

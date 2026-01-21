@@ -1,0 +1,19 @@
+{
+  "event": "MESSAGES_UPSERT",
+  "instanceId": "demo-instance",
+  "data": {
+    "messages": [
+      {
+        "key": {
+          "remoteJid": "5521973641659@s.whatsapp.net",
+          "fromMe": true,
+          "id": "SELF-001"
+        },
+        "message": {
+          "conversation": "Eco da propria instancia"
+        }
+      }
+    ],
+    "type": "notify"
+  }
+}

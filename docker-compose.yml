@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: evolution
+      POSTGRES_PASSWORD: Senhaforte1921!
+      POSTGRES_DB: evolution_db
+    volumes:
+      - evolution_pg:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"  
+    restart: always
+
+  evolution-api:
+    container_name: evolution_api
+    image: atendai/evolution-api:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - evolution_store:/evolution/store
+      - evolution_instances:/evolution/instances
+
+  bot:
+    build:
+      context: ./bot
+    container_name: ct_bot
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - postgres
+      - evolution-api
+    ports:
+      - "8000:8000"
+   
+volumes:
+  evolution_store:
+  evolution_instances:
+  evolution_pg:
