@@ -21,6 +21,19 @@ services:
       - evolution_store:/evolution/store
       - evolution_instances:/evolution/instances
 
+  bot:
+    build:
+      context: ./bot
+    container_name: ct_bot
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - postgres
+      - evolution-api
+    ports:
+      - "8000:8000"
+   
 volumes:
   evolution_store:
   evolution_instances:
