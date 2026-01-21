@@ -8,3 +8,6 @@ __pycache__/
 *.pyc
 beachbot/knowledge/embeddings/ct_combined.pkl
 beachbot/knowledge/embeddings/ct_combined_preview.md
+scripts-vps.md
+.env.VPS
+docker-compose-VPS.yml
