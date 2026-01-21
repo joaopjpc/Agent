@@ -93,18 +93,34 @@ def _parse_message_entry(entry: Any, instance_id: Optional[str]) -> tuple[Option
     if from_me:
         return None, True
 
+    # Evolution 2.3.0: quando remoteJid termina com @lid, senderPn traz o JID real.
     remote_jid = key.get("remoteJid") or entry.get("remoteJid")
+    sender_pn = key.get("senderPn") or entry.get("senderPn")
+    sender_lid = key.get("senderLid") or entry.get("senderLid")
     participant = key.get("participant")
     fallback_from = entry.get("from")
 
-    # Prioridade: remoteJid > participant (grupos) > campos antigos
+    # Prioridade: se for LID, tenta senderPn/participant primeiro; caso normal, remoteJid primeiro.
     sender_candidates = []
-    if remote_jid:
-        sender_candidates.append(remote_jid)
-    if participant:
-        sender_candidates.append(participant)
-    if fallback_from:
-        sender_candidates.append(fallback_from)
+    remote_is_lid = isinstance(remote_jid, str) and remote_jid.lower().endswith("@lid")
+    if remote_is_lid:
+        if sender_pn:
+            sender_candidates.append(sender_pn)
+        if sender_lid:
+            sender_candidates.append(sender_lid)
+        if participant:
+            sender_candidates.append(participant)
+        if remote_jid:
+            sender_candidates.append(remote_jid)
+        if fallback_from:
+            sender_candidates.append(fallback_from)
+    else:
+        if remote_jid:
+            sender_candidates.append(remote_jid)
+        if participant:
+            sender_candidates.append(participant)
+        if fallback_from:
+            sender_candidates.append(fallback_from)
 
     message_id = (
         key.get("id")
