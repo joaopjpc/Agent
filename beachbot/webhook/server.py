@@ -190,12 +190,29 @@ async def _handle_webhook(request: Request) -> JSONResponse:
         if text_len > 60:
             preview += "..."
         if not parsed_message.sender:
+            key_summary = None
+            if isinstance(payload, dict):
+                key_obj = None
+                data_obj = payload.get("data")
+                if isinstance(data_obj, dict):
+                    key_obj = data_obj.get("key")
+                if key_obj is None and isinstance(payload.get("key"), dict):
+                    key_obj = payload.get("key")
+                if isinstance(key_obj, dict):
+                    key_summary = {
+                        "remoteJid": key_obj.get("remoteJid"),
+                        "participant": key_obj.get("participant"),
+                        "fromMe": key_obj.get("fromMe"),
+                        "id": key_obj.get("id"),
+                    }
             logger.warning(
                 "Sender invalido ou LID; ignorando processamento",
                 extra={
                     "path": str(request.url.path),
                     "message_id": parsed_message.message_id,
                     "reason": "sender_invalid_or_lid",
+                    "event_path": getattr(request, "path_params", {}).get("event_path"),
+                    "key": key_summary,
                 },
             )
             return JSONResponse({"ok": True})
