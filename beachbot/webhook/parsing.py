@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class ParsedMessage:
     """Representa os campos essenciais de uma mensagem recebida."""
 
-    sender: str
+    sender: Optional[str]
     text: str
     message_id: Optional[str] = None
     instance_id: Optional[str] = None
@@ -95,9 +95,16 @@ def _parse_message_entry(entry: Any, instance_id: Optional[str]) -> tuple[Option
 
     remote_jid = key.get("remoteJid") or entry.get("remoteJid")
     participant = key.get("participant")
-    sender_raw = participant if participant else remote_jid
-    if not sender_raw:
-        sender_raw = entry.get("from")
+    fallback_from = entry.get("from")
+
+    # Prioridade: remoteJid > participant (grupos) > campos antigos
+    sender_candidates = []
+    if remote_jid:
+        sender_candidates.append(remote_jid)
+    if participant:
+        sender_candidates.append(participant)
+    if fallback_from:
+        sender_candidates.append(fallback_from)
 
     message_id = (
         key.get("id")
@@ -116,8 +123,14 @@ def _parse_message_entry(entry: Any, instance_id: Optional[str]) -> tuple[Option
     if text:
         text = text.strip()
 
-    sender = _normalize_sender(sender_raw)
-    if sender and text:
+    sender: Optional[str] = None
+    for candidate in sender_candidates:
+        normalized = _normalize_sender(candidate)
+        if normalized:
+            sender = normalized
+            break
+
+    if text:
         return ParsedMessage(sender=sender, text=text, message_id=message_id, instance_id=instance_id), False
 
     return None, False
@@ -131,12 +144,23 @@ def _normalize_sender(sender_raw: Any) -> Optional[str]:
     if not sender_str:
         return None
 
-    local_part = sender_str.split("@", 1)[0]
-    digits = re.findall(r"\d+", local_part)
-    if digits:
-        return "".join(digits)
+    sender_lower = sender_str.lower()
 
-    return sender_str
+    # Rejeita LID ou domínios não WhatsApp
+    if sender_lower.endswith("@lid"):
+        return None
+
+    allowed_domains = ("@s.whatsapp.net", "@c.us", "@g.us")
+    if any(sender_lower.endswith(dom) for dom in allowed_domains):
+        return sender_str
+
+    # Fallback apenas para números puros (sem domínio)
+    digits_only = re.sub(r"\D+", "", sender_str)
+    if not digits_only:
+        return None
+    if not digits_only.startswith("55"):
+        return None
+    return digits_only
 
 
 def _extract_text_from_message(message: Any) -> Optional[str]:

@@ -87,6 +87,17 @@ async def _process_message(parsed: ParsedMessage) -> None:
         )
         return
 
+    if not parsed.sender:
+        logger.warning(
+            "Sender invalido ou LID; resposta nao enviada",
+            extra={
+                "message_id": parsed.message_id,
+                "instance_id": parsed.instance_id,
+                "reason": "sender_invalid_or_lid",
+            },
+        )
+        return
+
     if evolution_client is None:
         logger.warning(
             "Evolution client nao configurado; resposta nao enviada",
