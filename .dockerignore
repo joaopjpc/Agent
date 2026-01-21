@@ -5,7 +5,9 @@ __pycache__/
 venv/
 .env
 .envANTIGO
+.envDEPLOY
 .git/
 .gitignore
 *.db
 .DS_Store
+
